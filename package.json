@@ -1,0 +1,50 @@
+{
+  "name": "album-collection-ca2",
+  "version": "1.0.0",
+  "description": "Frontend application using Restful API",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --env-file=.env --watch index.js",
+    "seed": "node --env-file=.env utils/seed.js",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "cross-env NODE_ENV=test MONGODB_URI=mongodb://localhost:27017/album-collection-test SESSION_SECRET=test-secret jest --runInBand",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "npm test -- --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-router": "^0.0.1",
+    "express-session": "^1.18.2",
+    "express-validator": "^7.3.0",
+    "helmet": "^8.1.0",
+    "install": "^0.13.0",
+    "mongo-connect": "^0.0.6",
+    "mongoose": "^8.20.0",
+    "node": "^25.1.0",
+    "npm": "^11.6.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@eslint/js": "^9.39.1",
+    "babel-jest": "^30.2.0",
+    "cross-env": "^10.1.0",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-vue": "^10.5.1",
+    "globals": "^16.5.0",
+    "jest": "^30.2.0",
+    "prettier": "^3.6.2",
+    "supertest": "^7.1.4"
+  }
+}
