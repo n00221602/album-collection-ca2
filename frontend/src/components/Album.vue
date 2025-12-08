@@ -29,7 +29,7 @@ const emit = defineEmits<{
         </RouterLink>
       </ItemContent>
       <ItemActions>
-        <Button
+        <!-- <Button
           variant="ghost"
           class="action-button"
           data-testid="toggle-favorite-button"
@@ -49,7 +49,7 @@ const emit = defineEmits<{
           data-testid="delete-album-button"
         >
           <Trash2 class="text-red-400" />
-        </Button>
+        </Button> -->
       </ItemActions>
     </Item>
   </li>

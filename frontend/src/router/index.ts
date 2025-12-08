@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AlbumsView from "@/views/Albums.vue";
 import AlbumView from "@/views/Album.vue";
+import ArtistView from "@/views/Artist.vue";
+import ReviewsView from "@/views/Reviews.vue";
 import LoginView from "@/views/Login.vue";
 import RegisterView from "@/views/Register.vue";
 import ProfileView from "@/views/Profile.vue";
@@ -19,6 +21,17 @@ const routes = [
     component: AlbumView,
     meta: { requiresAuth: true },
     props: true, // Takes any route parameters into the view component as props
+  },
+  {
+    path: "/artists/:id",
+    component: ArtistView,
+    meta: { requiresAuth: true },
+    props: true, // Takes any route parameters into the view component as props
+  },
+  {
+    path: "/reviews",
+    component: ReviewsView,
+    meta: { requiresAuth: true },
   },
 ];
 

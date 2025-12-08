@@ -13,7 +13,7 @@ const albumSchema = new mongoose.Schema(
     year: {
       type: Number,
       required: true,
-    }
+    },
   },
   { _id: true }
 );
@@ -34,6 +34,17 @@ const artistSchema = new mongoose.Schema(
 );
 
 artistSchema.set("toJSON", {
+  transform: (_document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
+    delete returnedObject.createdAt;
+    delete returnedObject.updatedAt;
+    delete returnedObject.userId;
+  },
+});
+
+albumSchema.set("toJSON", {
   transform: (_document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;

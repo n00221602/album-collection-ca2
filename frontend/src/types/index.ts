@@ -13,7 +13,12 @@ export interface Album {
 export interface Artist {
   id: string;
   name: string;
-  releases: [string];
+  releases: {
+    id: string;
+    title: string;
+    genre: [string];
+    year: number;
+  }[];
   bio: string;
 }
 
