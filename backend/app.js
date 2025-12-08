@@ -33,11 +33,11 @@ const createApp = () => {
   );
 
   //Connect the controller routes
-  app.use("/admin", adminRouter);
-  app.use("/albums", albumRouter);
-  app.use("/auth", authRouter);
-  app.use("/artists", artistRouter);
-  app.use("/reviews", reviewRouter);
+  app.use("/api/admin", adminRouter);
+  app.use("/api/albums", albumRouter);
+  app.use("/api/auth", authRouter);
+  app.use("/api/artists", artistRouter);
+  app.use("/api/reviews", reviewRouter);
 
   app.use(errorHandler);
 

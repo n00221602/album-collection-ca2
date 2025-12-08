@@ -1,0 +1,26 @@
+<script setup lang="ts">
+import { RouterView } from "vue-router";
+import { isLoggedIn, isLoading } from "@/stores/auth";
+import { Library } from "lucide-vue-next";
+import NavButton from "@/components/NavButton.vue";
+</script>
+
+<template>
+  <header class="border-b">
+    <div class="container flex items-center justify-between h-16 px-4 m-auto">
+      <div class="flex items-center gap-2">
+        <Library />
+        <h1 class="text-2xl font-bold">Album Collection</h1>
+      </div>
+      <nav v-if="!isLoading">
+        <NavButton v-if="isLoggedIn" to="/">Albums</NavButton>
+        <NavButton v-if="!isLoggedIn" to="/login">Login</NavButton>
+        <NavButton v-if="!isLoggedIn" to="/register">Register</NavButton>
+        <NavButton v-if="isLoggedIn" to="/profile">Profile</NavButton>
+      </nav>
+    </div>
+  </header>
+  <main class="py-6">
+    <RouterView />
+  </main>
+</template>
