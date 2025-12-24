@@ -77,20 +77,6 @@ const deleteAlbum = async () => {
       <Card>
         <CardHeader>
           <CardTitle class="text-2xl">Album Details</CardTitle>
-          <!-- <CardAction>
-            <Button variant="ghost" :disabled="!album" @click="toggleFavorite">
-              <Star
-                :class="
-                  album?.favorite
-                    ? 'fill-yellow-400 text-yellow-400'
-                    : 'text-gray-400'
-                "
-              />
-            </Button>
-            <Button variant="ghost" :disabled="!album" @click="deleteAlbum"
-              ><Trash2
-            /></Button>
-          </CardAction> -->
         </CardHeader>
         <CardContent v-if="album">
           <div class="space-y-4">
@@ -113,7 +99,7 @@ const deleteAlbum = async () => {
               <p class="text-lg">{{ album.year }}</p>
             </div>
             <div class="pt-4">
-              <RouterLink :to="`/reviews?albumId=${album.id}`">
+              <RouterLink :to="`/reviews/${album.id}`">
                 <Button variant="outline" class="w-full">View Reviews</Button>
               </RouterLink>
             </div>

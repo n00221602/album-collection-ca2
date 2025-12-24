@@ -3,6 +3,11 @@ import axios from "axios";
 
 const BASE_URL = "/api/reviews";
 
+const getUserReviews = async (): Promise<Review[]> => {
+  const response = await axios.get(`${BASE_URL}/user`);
+  return response.data;
+};
+
 const getAllReviews = async (): Promise<Review[]> => {
   const response = await axios.get(`${BASE_URL}`);
   return response.data;

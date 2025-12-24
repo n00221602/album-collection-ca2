@@ -26,6 +26,11 @@ export interface Review {
   id: string;
   rating: number;
   comment: string;
+  userId: {
+    email: string;
+    name: string;
+  };
+  albumId: string;
 }
 
 type UserRole = "user" | "admin";

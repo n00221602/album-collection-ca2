@@ -11,12 +11,20 @@ import Artist from "../models/artist.js";
 const reviewRouter = Router();
 
 // Get all reviews for the logged-in user
-reviewRouter.get("/", requireAuth, async (req, res) => {
+reviewRouter.get("/user", requireAuth, async (req, res) => {
   const reviews = await Review.find({ userId: req.session.userId}).exec();
   if (!reviews) {
       throw new HttpError(NOT_FOUND, "Could not find reviews");
     }
   res.json(reviews);
+});
+
+reviewRouter.get("/", requireAuth, async (req, res) => {
+  const allReviews = await Review.find().populate("userId").exec();
+  if (!allReviews) {
+      throw new HttpError(NOT_FOUND, "Could not find reviews");
+    }
+  res.json(allReviews);
 });
 
 // Get single review by ID

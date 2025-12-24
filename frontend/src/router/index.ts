@@ -29,9 +29,10 @@ const routes = [
     props: true, // Takes any route parameters into the view component as props
   },
   {
-    path: "/reviews",
+    path: "/reviews/:id",
     component: ReviewsView,
     meta: { requiresAuth: true },
+    props: true, // Takes any route parameters into the view component as props
   },
 ];
 
