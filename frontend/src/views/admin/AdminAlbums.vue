@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
-import type { Album as AlbumType } from "@/types";
-import Album from "@/components/Album.vue";
+import type { Album } from "@/types";
+import AdminAlbum from "@/components/AdminAlbum.vue";
 import albumService from "@/services/albums";
 import { useToast } from "vue-toastification";
 import axios from "axios";
@@ -17,10 +17,7 @@ import {
 const toast = useToast();
 
 const hideFavorite = ref(false);
-const albums = ref<AlbumType[]>([]);
-const filteredAlbums = computed(() => {
-    return albums.value.filter((album) => !album.favorite || !hideFavorite.value);
-});
+const albums = ref<Album[]>([]);
 const isLoading = ref(true);
 
 onMounted(async () => {
@@ -37,40 +34,14 @@ onMounted(async () => {
     }
 });
 
-const toggleFavorite = async (album: AlbumType) => {
+const deleteAlbum = async (chosenAlbum: Album) => {
     try {
-        const result = await albumService.updateAlbum(
-            album.id,
-            album.title,
-            album.genre,
-            album.year
-        );
-        album.favorite = result.favorite;
+        await albumService.deleteAlbum(chosenAlbum.id!);
+        //Refresh the artists list after deleting
+        albums.value = albums.value.filter(album => album.id !== chosenAlbum.id);
+        toast.success("Album deleted successfully!");
     } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-            const errorMessage =
-                error.response?.data?.message || "Failed to update album";
-            toast.error(errorMessage);
-        } else {
-            const errorMessage = "Failed to update album";
-            toast.error(errorMessage);
-        }
-    }
-};
-
-const deleteAlbum = async (albumToDelete: AlbumType) => {
-    try {
-        await albumService.deleteAlbum(albumToDelete.id);
-        albums.value = albums.value.filter((album) => album !== albumToDelete);
-    } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-            const errorMessage =
-                error.response?.data?.message || "Failed to delete album";
-            toast.error(errorMessage);
-        } else {
-            const errorMessage = "Failed to delete album";
-            toast.error(errorMessage);
-        }
+        toast.error("Failed to delete album.");
     }
 };
 </script>
@@ -82,9 +53,9 @@ const deleteAlbum = async (albumToDelete: AlbumType) => {
         </div>
         <div class="flex justify-between items-center my-6">
             <h2 class="text-2xl font-bold">All Albums</h2>
-            <Button variant="outline" @click="hideFavorite = !hideFavorite">
-                {{ hideFavorite ? "Show All" : "Hide Favorites" }}
-            </Button>
+            <RouterLink to="/admin/albums/form">
+                <Button variant="outline">Add Album</Button>
+            </RouterLink>
         </div>
         <div v-if="albums.length < 1" class="text-muted-foreground">
             <Empty>
@@ -96,8 +67,7 @@ const deleteAlbum = async (albumToDelete: AlbumType) => {
             </Empty>
         </div>
         <ul v-else class="space-y-3">
-            <Album v-for="album in albums" :key="album.id" :album="album"
-                @toggle-favorite="toggleFavorite(album)" />
+            <AdminAlbum v-for="album in albums" :key="album.id" :album="album" @delete="deleteAlbum(album)" />
         </ul>
     </div>
 </template>

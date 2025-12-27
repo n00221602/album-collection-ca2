@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import type { Artist as ArtistType } from "@/types";
-import Artist from "@/components/Artist.vue";
+import type { Artist } from "@/types";
+import ArtistComponent from "@/components/AdminArtist.vue";
 import artistService from "@/services/artists";
 import { useToast } from "vue-toastification";
 import axios from "axios";
@@ -16,7 +16,7 @@ import {
 
 const toast = useToast();
 
-const artists = ref<ArtistType[]>([]);
+const artists = ref<Artist[]>([]);
 const isLoading = ref(true);
 
 onMounted(async () => {
@@ -33,20 +33,16 @@ onMounted(async () => {
     }
 });
 
-const deleteArtist = async (artistToDelete: ArtistType) => {
+
+const deleteArtist = async (chosenArtist: Artist) => {
     try {
-        await artistService.deleteArtist(artistToDelete.id);
-        artists.value = artists.value.filter((artist) => artist !== artistToDelete);
+        await artistService.deleteArtist(chosenArtist.id);
+        //Refresh the artists list after deleting
+        artists.value = artists.value.filter(artist => artist.id !== chosenArtist.id);
         toast.success("Artist deleted successfully");
+
     } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-            const errorMessage =
-                error.response?.data?.message || "Failed to delete artist";
-            toast.error(errorMessage);
-        } else {
-            const errorMessage = "Failed to delete artist";
-            toast.error(errorMessage);
-        }
+        toast.error("Failed to delete artist.");
     }
 };
 </script>
@@ -72,7 +68,8 @@ const deleteArtist = async (artistToDelete: ArtistType) => {
             </Empty>
         </div>
         <ul v-else class="space-y-3">
-            <Artist v-for="artist in artists" :key="artist.id" :artist="artist" @delete="deleteArtist(artist)" />
+            <ArtistComponent v-for="artist in artists" :key="artist.id" :artist="artist"
+                @delete="deleteArtist(artist)" />
         </ul>
     </div>
 </template>

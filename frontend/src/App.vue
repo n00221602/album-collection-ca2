@@ -22,7 +22,7 @@ import NavButton from "@/components/NavButton.vue";
       </nav>
     </div>
   </header>
-  <main class="py-6">
+  <main class="py-6 bg-gray-800">
     <RouterView />
   </main>
 </template>

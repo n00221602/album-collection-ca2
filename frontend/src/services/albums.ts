@@ -1,3 +1,4 @@
+import { artistSchema } from "@/schemas/artist";
 import type { Album } from "@/types";
 import axios from "axios";
 
@@ -14,11 +15,13 @@ const getAlbum = async (albumId: string): Promise<Album> => {
 };
 
 const createAlbum = async (
+  
   title: string,
   genre: [string],
-  year: number
+  year: number,
+  artistId: string
 ): Promise<Album> => {
-  const response = await axios.post(`${BASE_URL}`, { title, genre, year });
+  const response = await axios.post(`${BASE_URL}`, { title, genre, year, artistId });
   return response.data;
 };
 

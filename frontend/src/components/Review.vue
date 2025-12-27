@@ -1,60 +1,27 @@
 <script setup lang="ts">
+import type { Review } from "@/types/index";
+import { RouterLink } from "vue-router";
 import { Card, CardTitle, CardHeader, CardContent } from "@/components/ui/card";
-import { reviewSchema } from "@/schemas/review";
-import { toTypedSchema } from "@vee-validate/zod";
-import { useForm, Field } from "vee-validate";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import type { ReviewInput } from "@/schemas/review";
 
-const emit = defineEmits<{ submit: [review: ReviewInput] }>();
+const props = defineProps<{ review: Review }>();
 
-const props = defineProps<{ albumId: string }>();
+const emit = defineEmits<{ delete: [review: Review] }>();
 
-const validationSchema = toTypedSchema(reviewSchema);
-
-const { handleSubmit, isSubmitting, errors, resetForm } = useForm({
-  validationSchema,
-  initialValues: {
-    rating: 5,
-    comment: "",
-    albumId: props.albumId,
-  },
-});
-
-const onSubmit = handleSubmit(async (values) => {
-  emit("submit", values as ReviewInput);
-  resetForm();
-});
 </script>
 
 <template>
-  <Card>
+  <Card class="py-4">
     <CardHeader>
-      <CardTitle>Add New Review</CardTitle>
+      <CardTitle class="text-lg">{{ review.userId.name }}</CardTitle>
     </CardHeader>
     <CardContent>
-      <form @submit="onSubmit" class="space-y-4">
-        <div>
-          <label class="text-sm font-semibold">Rating (0-10)</label>
-          <Field name="rating" :validateOnModelUpdate="false" v-slot="{ field }">
-            <Input v-bind="field" type="number" min="0" max="10" placeholder="Add rating"
-              data-testid="review-rating-input" :class="{ 'border-destructive': errors.rating }" />
-          </Field>
-          <span class="text-sm text-destructive">{{ errors.rating }}</span>
-        </div>
-
-        <div>
-          <label class="text-sm font-semibold">Comment (optional)</label>
-          <Field name="comment" :validateOnModelUpdate="false" v-slot="{ field }">
-            <Input v-bind="field" type="text" placeholder="Add comment" data-testid="review-comment-input"
-              :class="{ 'border-destructive': errors.comment }" />
-          </Field>
-          <span class="text-sm text-destructive">{{ errors.comment }}</span>
-        </div>
+      <div>
+        <h1>Rating: {{ review.rating }}/10</h1>
+        <p>{{ review.comment }}</p>
         
-        <Button type="submit" :disabled="isSubmitting" data-testid="create-review-button">Add Review</Button>
-      </form>
+        <!-- Add Album image, clicking will lead to that album's details page -->
+      </div>
     </CardContent>
   </Card>
 </template>

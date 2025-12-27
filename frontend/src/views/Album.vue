@@ -6,14 +6,14 @@ import type { Album } from "@/types";
 import albumService from "@/services/albums";
 import { useToast } from "vue-toastification";
 import { Spinner } from "@/components/ui/spinner";
+import axios from "axios";
 import {
   Card,
   CardTitle,
   CardHeader,
   CardContent,
-  CardAction,
 } from "@/components/ui/card";
-import { Trash2, Star, ArrowLeft } from "lucide-vue-next";
+import { ArrowLeft } from "lucide-vue-next";
 import { Button } from "@/components/ui/button";
 import {
   Empty,
@@ -27,13 +27,19 @@ const props = defineProps<{ id: string }>();
 const router = useRouter();
 const toast = useToast();
 const album = ref<Album | null>(null);
+const albumImage = ref<string>("");
 const isLoading = ref(true);
 
 onMounted(async () => {
   try {
     album.value = await albumService.getAlbum(props.id);
     if (album.value) {
-      // artist.value = await artistService.getArtist(album.value.artist.id);
+      const response = await axios.get(
+        `https://api.discogs.com/database/search?q=${album.value.title}&type=master&token=VdealDdEcIKuzMoTGClVUUykVMMuDKFLDehQNoVW`
+      );
+      if (response.data.results && response.data.results.length > 0) {
+        albumImage.value = response.data.results[0].cover_image;
+      }
     }
   } catch (error: unknown) {
     toast.error("Error loading album.");
@@ -52,26 +58,19 @@ const toggleFavorite = async () => {
     toast.error("Failed to update album favorite.");
   }
 };
-
-const deleteAlbum = async () => {
-  try {
-    await albumService.deleteAlbum(props.id);
-    router.push("/");
-  } catch (error: unknown) {
-    toast.error("Failed to delete album.");
-  }
-};
 </script>
 
 <template>
   <div class="container m-auto max-w-2xl p-4">
-    <div v-if="isLoading"><Spinner class="size-8" /></div>
+    <div v-if="isLoading">
+      <Spinner class="size-8" />
+    </div>
     <div v-else>
       <div class="mb-6">
         <Button variant="ghost">
-          <RouterLink to="/" class="flex items-center gap-2"
-            ><ArrowLeft />Back to Albums</RouterLink
-          >
+          <RouterLink to="/" class="flex items-center gap-2">
+            <ArrowLeft />Back to Albums
+          </RouterLink>
         </Button>
       </div>
       <Card>
@@ -80,6 +79,7 @@ const deleteAlbum = async () => {
         </CardHeader>
         <CardContent v-if="album">
           <div class="space-y-4">
+            <img v-if="albumImage" :src="albumImage" :alt="album.title" class="w-full h-64 object-cover rounded-lg mb-4" />
             <div>
               <p class="text-sm font-semibold text-gray-500">Title</p>
               <p class="text-lg">{{ album.title }}</p>
@@ -109,9 +109,7 @@ const deleteAlbum = async () => {
           <Empty>
             <EmptyHeader>
               <EmptyTitle>Album does not exist</EmptyTitle>
-              <EmptyDescription
-                >Please select an album that exists</EmptyDescription
-              >
+              <EmptyDescription>Please select an album that exists</EmptyDescription>
             </EmptyHeader>
           </Empty>
         </CardContent>

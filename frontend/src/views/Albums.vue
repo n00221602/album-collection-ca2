@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
-import type { Album as AlbumType } from "@/types";
-import Album from "@/components/Album.vue";
+import type { Album } from "@/types";
+import AlbumComponent from "@/components/Album.vue";
 import albumService from "@/services/albums";
 import { useToast } from "vue-toastification";
 import axios from "axios";
@@ -13,12 +13,13 @@ import {
   EmptyDescription,
   EmptyHeader,
 } from "@/components/ui/empty";
+import { Columns, Rows } from "lucide-vue-next";
 //import AlbumForm from "@/components/AlbumForm.vue";
 
 const toast = useToast();
 
 const hideFavorite = ref(false);
-const albums = ref<AlbumType[]>([]);
+const albums = ref<Album[]>([]);
 const filteredAlbums = computed(() => {
   return albums.value.filter((album) => !album.favorite || !hideFavorite.value);
 });
@@ -38,7 +39,7 @@ onMounted(async () => {
   }
 });
 
-const toggleFavorite = async (album: AlbumType) => {
+const toggleFavorite = async (album: Album) => {
   try {
     const result = await albumService.updateAlbum(
       album.id,
@@ -61,31 +62,24 @@ const toggleFavorite = async (album: AlbumType) => {
 </script>
 
 <template>
-  <div class="container m-auto max-w-2xl p-4">
-    <div v-if="isLoading"><Spinner class="size-8" /></div>
-    <div class="flex justify-between items-center my-6">
-      <h2 class="text-2xl font-bold">All Albums</h2>
-      <Button variant="outline" @click="hideFavorite = !hideFavorite">
-        {{ hideFavorite ? "Show All" : "Hide Favorites" }}
-      </Button>
+  <div class="container bg-stone-100 m-auto max-w-2xl p-4">
+    <div v-if="isLoading">
+      <Spinner class="size-8" />
     </div>
-    <div v-if="albums.length < 1" class="text-muted-foreground">
+    <div class="text-center mb-4 mt-2">
+      <h1 class="text-2xl font-bold ">All Albums</h1>
+    </div>
+    <div v-if="albums.length < 1">
       <Empty>
         <EmptyHeader>
           <EmptyTitle>No albums yet</EmptyTitle>
-          <EmptyDescription
-            >You haven't added any albums yet. Get started by adding your first
-            album</EmptyDescription
-          >
+          <EmptyDescription>You haven't added any albums yet. Get started by adding your first
+            album</EmptyDescription>
         </EmptyHeader>
       </Empty>
     </div>
-    <ul v-else class="space-y-3">
-      <Album
-        v-for="album in albums"
-        :key="album.id"
-        :album="album"
-      />
-    </ul>
+    <div v-else class="grid grid-cols-3 gap-4">
+      <AlbumComponent v-for="album in albums" :key="album.id" :album="album" />
+    </div>
   </div>
 </template>

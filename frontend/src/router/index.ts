@@ -41,7 +41,7 @@ const routes = [
     props: true, // Takes any route parameters into the view component as props
   },
   {
-    path: "/reviews/form/:id",
+    path: "/reviews/form/:id/:yourReviewId?",
     component: ReviewFormView,
     meta: { requiresAuth: true },
     props: true, // Takes any route parameters into the view component as props
@@ -59,13 +59,7 @@ const routes = [
     props: true, // Takes any route parameters into the view component as props
   },
   {
-    path: "/admin/albums/form",
-    component: AlbumFormView,
-    meta: { requiresAuth: true, requiresAdmin: true },
-    props: true, // Takes any route parameters into the view component as props
-  },
-  {
-    path: "/admin/albums/form/:artistId",
+    path: "/admin/albums/form/:albumId?",
     component: AlbumFormView,
     meta: { requiresAuth: true, requiresAdmin: true },
     props: true, // Takes any route parameters into the view component as props
@@ -77,13 +71,7 @@ const routes = [
     props: true, // Takes any route parameters into the view component as props
   },
   {
-    path: "/admin/artists/form",
-    component: ArtistFormView,
-    meta: { requiresAuth: true, requiresAdmin: true },
-    props: true, // Takes any route parameters into the view component as props
-  },
-  {
-    path: "/admin/artists/form/:artistId",
+    path: "/admin/artists/form/:artistId?",
     component: ArtistFormView,
     meta: { requiresAuth: true, requiresAdmin: true },
     props: true, // Takes any route parameters into the view component as props

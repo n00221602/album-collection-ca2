@@ -9,32 +9,70 @@ import type { ReviewInput } from "@/schemas/review";
 import reviewService from "@/services/reviews";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
+import type { Review } from "@/types";
+import { ref, onMounted, computed } from "vue";
 
 const router = useRouter();
 const toast = useToast();
 
+// The edit/create form will show depending on if the user has a review already
+const yourReview = ref<Review | null>(null);
+
 const emit = defineEmits<{ submit: [review: ReviewInput] }>();
 
-const props = defineProps<{ id: string }>();
+const props = defineProps<{ id: string; yourReviewId?: string }>();
 
 const validationSchema = toTypedSchema(reviewSchema);
-const { handleSubmit, isSubmitting, errors, resetForm } = useForm({
+const { handleSubmit, isSubmitting, errors, setValues } = useForm({
     validationSchema,
     initialValues: {
-        rating: 5,
+        rating: undefined,
         comment: "",
-        albumId: props.id,
+        albumId: props.id
     },
 });
 
+onMounted(async () => {
+    if (props.yourReviewId) {
+        yourReview.value = await reviewService.getReview(props.yourReviewId);
+        console.log(yourReview.value.review);
+        setValues({
+            rating: yourReview.value.review.rating,
+            comment: yourReview.value.review.comment,
+            albumId: props.id
+        });
+    }
+});
+
+const deleteReview = async () => {
+    try {
+        await reviewService.deleteReview(props.yourReviewId!);
+        toast.success("Review deleted successfully!");
+        router.push(`/reviews/${props.id}`);
+    } catch (error: unknown) {
+        toast.error("Failed to delete album.");
+    }
+};
+
 const onSubmit = handleSubmit(async (values) => {
     try {
-        await reviewService.createReview(values.rating, values.comment || "", values.albumId);
-        toast.success("Review created successfully!");
-        resetForm();
+        if (props.yourReviewId) {
+            // Calls edit service
+            await reviewService.updateReview(props.yourReviewId, values.rating, values.comment || "");
+            toast.success("Review updated successfully!");
+        } else {
+            // Calls create service
+            await reviewService.createReview(values.rating, values.comment || "", values.albumId);
+            toast.success("Review created successfully!");
+        }
         router.push(`/reviews/${props.id}`);
     } catch (error: any) {
-        toast.error(error.response?.data?.message || "Failed to create review");
+        if (props.yourReviewId) {
+            toast.error(error.response?.data?.message || "Failed to update review");
+            return;
+        } else {
+            toast.error(error.response?.data?.message || "Failed to create review");
+        }
     }
 });
 </script>
@@ -42,7 +80,7 @@ const onSubmit = handleSubmit(async (values) => {
 <template>
     <Card>
         <CardHeader>
-            <CardTitle>Add New Review</CardTitle>
+            <CardTitle>{{ yourReview ? 'Edit Review' : 'Add New Review' }}</CardTitle>
         </CardHeader>
         <CardContent>
             <form @submit="onSubmit" class="space-y-4">
@@ -64,8 +102,14 @@ const onSubmit = handleSubmit(async (values) => {
                     <span class="text-sm text-destructive">{{ errors.comment }}</span>
                 </div>
 
-                <Button type="submit" :disabled="isSubmitting" data-testid="create-review-button">Add Review</Button>
+                <Button type="submit" :disabled="isSubmitting" data-testid="create-review-button">{{ yourReview ?
+                    'Update Review' : 'Add Review' }}</Button>
             </form>
+            <div v-if="yourReview">
+                <Button class="bg-red-600 text-white" @click="deleteReview()" data-testid="delete-artist-button">
+                    Delete
+                </Button>
+            </div>
         </CardContent>
     </Card>
 </template>

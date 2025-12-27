@@ -44,7 +44,9 @@ const handleLogout = async () => {
       </Card>
     </div>
     <div v-else-if="isLoading">
-      <p><Spinner /></p>
+      <p>
+        <Spinner />
+      </p>
     </div>
     <div v-else>
       <p>Not logged in</p>

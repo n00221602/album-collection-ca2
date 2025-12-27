@@ -15,7 +15,7 @@ const getArtist = async (artistId: string): Promise<Artist> => {
 
 const createArtist = async (
   name: string,
-  releases: { title: string; genres: string[]; year: string }[],
+  releases: { title: string; genre: string[]; year: number }[],
   bio: string
 ): Promise<Artist> => {
   const response = await axios.post(`${BASE_URL}`, { name, releases, bio });
@@ -25,10 +25,12 @@ const createArtist = async (
 const updateArtist = async (
   artistId: string,
   name: string,
+  releases: { title: string; genre: string[]; year: number }[],
   bio: string
 ): Promise<Artist> => {
   const response = await axios.put(`${BASE_URL}/${artistId}`, {
     name,
+    releases,
     bio,
   });
   return response.data;

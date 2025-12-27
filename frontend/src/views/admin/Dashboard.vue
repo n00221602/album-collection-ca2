@@ -50,9 +50,6 @@ const isAdmin = computed(() => {
                     </CardHeader>
                     <CardContent>
                         <div class="space-x-4">
-                            <RouterLink :to="`/admin/albums/form`">
-                                <Button>Add New Album</Button>
-                            </RouterLink>
                             <RouterLink :to="`/admin/albums`">
                                 <Button>View Albums List</Button>
                             </RouterLink>
@@ -68,9 +65,6 @@ const isAdmin = computed(() => {
                     </CardHeader>
                     <CardContent>
                         <div class="space-x-4">
-                            <RouterLink :to="`/admin/artists/form`">
-                                <Button>Add New Artist</Button>
-                            </RouterLink>
                             <RouterLink :to="`/admin/artists`">
                                 <Button>View Artists List</Button>
                             </RouterLink>
