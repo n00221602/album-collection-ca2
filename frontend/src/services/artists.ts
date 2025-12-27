@@ -13,8 +13,12 @@ const getArtist = async (artistId: string): Promise<Artist> => {
   return response.data;
 };
 
-const createArtist = async (name: string, bio: string): Promise<Artist> => {
-  const response = await axios.post(`${BASE_URL}`, { name, bio });
+const createArtist = async (
+  name: string,
+  releases: { title: string; genres: string[]; year: string }[],
+  bio: string
+): Promise<Artist> => {
+  const response = await axios.post(`${BASE_URL}`, { name, releases, bio });
   return response.data;
 };
 

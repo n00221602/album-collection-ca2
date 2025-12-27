@@ -38,25 +38,6 @@ onMounted(async () => {
   }
 });
 
-const addNewAlbum = async (album: AlbumType) => {
-  try {
-    const response = await albumService.createAlbum(
-      album.title,
-      album.genre,
-      album.year
-    );
-    albums.value.push(response);
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
-      const errorMessage =
-        error.response?.data?.message || "Failed to create album";
-      toast.error(errorMessage);
-    } else {
-      toast.error("Failed to create album");
-    }
-  }
-};
-
 const toggleFavorite = async (album: AlbumType) => {
   try {
     const result = await albumService.updateAlbum(
@@ -77,22 +58,6 @@ const toggleFavorite = async (album: AlbumType) => {
     }
   }
 };
-
-// const deleteAlbum = async (albumToDelete: AlbumType) => {
-//   try {
-//     await albumService.deleteAlbum(albumToDelete.id);
-//     albums.value = albums.value.filter((album) => album !== albumToDelete);
-//   } catch (error: unknown) {
-//     if (axios.isAxiosError(error)) {
-//       const errorMessage =
-//         error.response?.data?.message || "Failed to delete album";
-//       toast.error(errorMessage);
-//     } else {
-//       const errorMessage = "Failed to delete album";
-//       toast.error(errorMessage);
-//     }
-//   }
-// };
 </script>
 
 <template>
@@ -117,10 +82,9 @@ const toggleFavorite = async (album: AlbumType) => {
     </div>
     <ul v-else class="space-y-3">
       <Album
-        v-for="album in filteredAlbums"
+        v-for="album in albums"
         :key="album.id"
         :album="album"
-        @toggle-favorite="toggleFavorite(album)"
       />
     </ul>
   </div>

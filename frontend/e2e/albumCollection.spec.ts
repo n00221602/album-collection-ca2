@@ -1,15 +1,15 @@
 import { test, expect } from "@playwright/test";
 const { describe, beforeEach } = test;
 
-describe("Note App", () => {
+describe("Album Collection", () => {
   beforeEach(async ({ page }) => {
     // Reset the database before each test
     await page.goto("http://localhost:5173/");
   });
 
   test("front page can be opened", async ({ page }) => {
-    // Expect the front page to contain "Notes"
-    await expect(page.getByText("Notes")).toBeVisible();
+    // Expect the front page to contain "Albums"
+    await expect(page.getByText("Albums")).toBeVisible();
     // Expect the front page to be redirected to the login page
     // where "Welcome back!" is visible
     await expect(page.getByText("Welcome back!")).toBeVisible();
@@ -21,8 +21,8 @@ describe("Note App", () => {
     await page.getByTestId("form-field-password").fill("password123");
     await page.getByTestId("login-submit").click();
 
-    // Expect to be logged in and see the notes page
-    await expect(page.getByText("Your Notes")).toBeVisible();
+    // Expect to be logged in and see the albums page
+    await expect(page.getByText("Your albums")).toBeVisible();
   });
 
   describe("when logged in", () => {
@@ -33,15 +33,15 @@ describe("Note App", () => {
       await page.getByTestId("login-submit").click();
     });
 
-    test("a new note can be created", async ({ page }) => {
-      // Fill in the note content
-      await page.getByTestId("note-content-input").fill("This is a new note.");
+    test("a new album can be created", async ({ page }) => {
+      // Fill in the album content
+      await page.getByTestId("album-content-input").fill("This is a new album.");
 
-      // Click the button to create a new note
-      await page.getByTestId("create-note-button").click();
+      // Click the button to create a new album
+      await page.getByTestId("create-album-button").click();
 
-      // Expect the new note to be visible in the notes list
-      await expect(page.getByText("This is a new note.")).toBeVisible();
+      // Expect the new album to be visible in the albums list
+      await expect(page.getByText("This is a new album.")).toBeVisible();
     });
   });
 });

@@ -11,6 +11,7 @@ export const albumSchema = z.object({
     .int()
     .min(1900, "Year must be within range")
     .max(2025, "Year must be within range"),
+    artistId: z.string().min(1, "Artist ID is required"),
 });
 
 export type AlbumInput = z.infer<typeof albumSchema>;

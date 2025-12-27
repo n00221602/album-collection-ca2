@@ -42,7 +42,7 @@ const { handleSubmit, isSubmitting } = useForm({
 const onSubmit = handleSubmit(async (values) => {
   try {
     await login(values.email, values.password);
-    toast.success("Successfully logged in!");
+    toast.success("Successfully logged in!",);
     router.push("/");
   } catch (error: unknown) {
     if (error instanceof axios.AxiosError) {
@@ -71,41 +71,21 @@ const onSubmit = handleSubmit(async (values) => {
         <Empty>
           <EmptyHeader>
             <EmptyTitle>Already Logged In!</EmptyTitle>
-            <EmptyDescription
-              >You are already logged in. If you meant to login with a different
-              account, log out first.</EmptyDescription
-            >
+            <EmptyDescription>You are already logged in. If you meant to login with a different
+              account, log out first.</EmptyDescription>
           </EmptyHeader>
         </Empty>
       </CardContent>
       <form v-else @submit="onSubmit">
         <CardContent>
-          <FormField
-            name="email"
-            label="Email"
-            type="email"
-            placeholder="you@example.com"
-          />
-          <FormField
-            name="password"
-            label="Password"
-            type="password"
-            placeholder="password"
-          />
+          <FormField name="email" label="Email" type="email" placeholder="you@example.com" />
+          <FormField name="password" label="Password" type="password" placeholder="password" />
         </CardContent>
         <CardFooter class="flex flex-col gap-2">
-          <Button
-            type="submit"
-            class="w-full"
-            :disabled="isSubmitting"
-            data-testid="login-submit"
-            >Login</Button
-          >
+          <Button type="submit" class="w-full" :disabled="isSubmitting" data-testid="login-submit">Login</Button>
           <p class="text-center text-muted-foreground">
             Don't have an account?
-            <RouterLink to="/register" class="text-primary hover:underline"
-              >Register</RouterLink
-            >
+            <RouterLink to="/register" class="text-primary hover:underline">Register</RouterLink>
           </p>
         </CardFooter>
         <div v-if="inputError" class="text-sm text-destructive">

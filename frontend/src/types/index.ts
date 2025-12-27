@@ -27,6 +27,7 @@ export interface Review {
   rating: number;
   comment: string;
   userId: {
+    id: string;
     email: string;
     name: string;
   };

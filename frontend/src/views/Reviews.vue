@@ -2,12 +2,13 @@
 import { ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import type { Review } from "@/types";
+import { user } from "@/stores/auth";
 import reviewService from "@/services/reviews";
 import { useToast } from "vue-toastification";
 import axios from "axios";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-vue-next";
+import { ArrowLeft, Router } from "lucide-vue-next";
 import {
   Empty,
   EmptyTitle,
@@ -58,8 +59,11 @@ onMounted(async () => {
           <ArrowLeft class="mr-2" />Back to Album
         </Button>
       </div>
-      <div class="flex justify-between items-center my-6">
+      <div class="flex justify-between items-center space-x-4 my-6">
         <h2 class="text-2xl font-bold">Album Reviews</h2>
+        <RouterLink :to="`/reviews/form/${props.id}`">
+          <Button class="mt-4 bg-blue-500">Add Your Review</Button>
+        </RouterLink>
       </div>
       <div v-if="reviews.length < 1" class="text-muted-foreground">
         <Empty>
@@ -75,8 +79,11 @@ onMounted(async () => {
       <ul v-else class="space-y-3">
         <Card v-for="review in reviews" :key="review.albumId">
           <CardHeader>
-            <CardTitle class="text-lg">{{ review.userId.name }}</CardTitle>
+            <!-- If a review was by the current user, show "Your Review" -->
+            <CardTitle v-if="user && user.id === review.userId.id" class="text-lg">Your Review</CardTitle>
+            <CardTitle v-else class="text-lg">{{ review.userId.name }}</CardTitle>
           </CardHeader>
+
           <CardContent v-if="review">
             <div>
               <h1>Rating: {{ review.rating }}/10</h1>

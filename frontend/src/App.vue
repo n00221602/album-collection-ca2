@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import { isLoggedIn, isLoading } from "@/stores/auth";
+import { isLoggedIn, isLoading, user } from "@/stores/auth";
 import { Library } from "lucide-vue-next";
 import NavButton from "@/components/NavButton.vue";
+
 </script>
 
 <template>
@@ -17,6 +18,7 @@ import NavButton from "@/components/NavButton.vue";
         <NavButton v-if="!isLoggedIn" to="/login">Login</NavButton>
         <NavButton v-if="!isLoggedIn" to="/register">Register</NavButton>
         <NavButton v-if="isLoggedIn" to="/profile">Profile</NavButton>
+        <NavButton v-if="isLoggedIn && user?.role === 'admin'" to="/admin">Admin</NavButton>
       </nav>
     </div>
   </header>
