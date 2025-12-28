@@ -7,7 +7,7 @@ const props = defineProps<{
 
 <template>
   <RouterLink :to="props.to" v-slot="{ navigate, isActive }">
-    <Button class="bg-slate-500" :class="{ 'bg-accent': isActive, 'text-black': isActive }" @click="navigate">
+    <Button class="bg-slate-500 mr-2" :class="{ 'bg-accent': isActive, 'text-black': isActive }" @click="navigate">
       <slot></slot>
     </Button>
   </RouterLink>
