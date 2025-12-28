@@ -61,59 +61,72 @@ const toggleFavorite = async () => {
 </script>
 
 <template>
-  <div class="container m-auto max-w-2xl p-4">
+  <div class="container bg-slate-800 m-auto max-w-4xl p-8 shadow-2xl rounded-lg text-white">
     <div v-if="isLoading">
       <Spinner class="size-8" />
     </div>
     <div v-else>
-      <div class="mb-6">
-        <Button variant="ghost">
-          <RouterLink to="/" class="flex items-center gap-2">
-            <ArrowLeft />Back to Albums
-          </RouterLink>
-        </Button>
-      </div>
-      <Card>
-        <CardHeader>
-          <CardTitle class="text-2xl">Album Details</CardTitle>
-        </CardHeader>
-        <CardContent v-if="album">
-          <div class="space-y-4">
-            <img v-if="albumImage" :src="albumImage" :alt="album.title" class="w-full h-64 object-cover rounded-lg mb-4" />
-            <div>
-              <p class="text-sm font-semibold text-gray-500">Title</p>
-              <p class="text-lg">{{ album.title }}</p>
-            </div>
-            <div>
+      <Button variant="ghost">
+        <RouterLink to="/" class="flex items-center gap-2">
+          <ArrowLeft />Back to Albums
+        </RouterLink>
+      </Button>
+    </div>
+    <Card class="bg-slate-700 border-0 text-white mt-4">
+      <CardContent v-if="album">
+        <div class="grid grid-cols-2 gap-4">
+          <!-- Album Column 1 -->
+          <div class="flex flex-col justify-between">
+            <!-- Album Title -->
+            <CardHeader class="p-0 my-4">
+              <CardTitle class="text-4xl text-center font-bold text-white mb-2">{{ album?.title }}</CardTitle>
+            </CardHeader>
+
+            <!-- Album Artist -->
+            <div class="mb-4">
               <p class="text-sm font-semibold text-gray-500">Artist</p>
               <RouterLink :to="`/artists/${album.artist.id}`">
                 <p class="text-lg">{{ album.artist.name }}</p>
               </RouterLink>
             </div>
-            <div>
+
+            <!-- Album Genre -->
+            <div class="mb-4">
               <p class="text-sm font-semibold text-gray-500">Genre</p>
               <p class="text-lg">{{ album.genre.join(", ") }}</p>
             </div>
-            <div>
+
+            <!-- Album Year -->
+            <div class="mb-4">
               <p class="text-sm font-semibold text-gray-500">Year</p>
               <p class="text-lg">{{ album.year }}</p>
             </div>
-            <div class="pt-4">
-              <RouterLink :to="`/reviews/${album.id}`">
-                <Button variant="outline" class="w-full">View Reviews</Button>
-              </RouterLink>
+
+            <!-- View Reviews Button -->
+            <div class=" pt-4">
+                <RouterLink :to="`/reviews/${album.id}`">
+                  <Button class="w-full">Show All Reviews</Button>
+                </RouterLink>
             </div>
           </div>
-        </CardContent>
-        <CardContent v-else>
-          <Empty>
-            <EmptyHeader>
-              <EmptyTitle>Album does not exist</EmptyTitle>
-              <EmptyDescription>Please select an album that exists</EmptyDescription>
-            </EmptyHeader>
-          </Empty>
-        </CardContent>
-      </Card>
-    </div>
+
+          <!-- Album Column 2 -->
+          <div class="flex items-center justify-center bg-slate-600 p-2 shadow-xl">
+            <!-- Album Cover Image -->
+            <img v-if="albumImage" :src="albumImage" :alt="album.title" class=" w-full object-cover" />
+          </div>
+
+
+        </div>
+      </CardContent>
+      <CardContent v-else>
+        <Empty>
+          <EmptyHeader>
+            <EmptyTitle>Album does not exist</EmptyTitle>
+            <EmptyDescription>Please select an album that exists</EmptyDescription>
+          </EmptyHeader>
+        </Empty>
+      </CardContent>
+    </Card>
   </div>
 </template>

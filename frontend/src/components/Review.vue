@@ -11,7 +11,7 @@ const emit = defineEmits<{ delete: [review: Review] }>();
 </script>
 
 <template>
-  <Card class="py-4">
+  <Card class="py-4 text-white bg-slate-700">
     <CardHeader>
       <CardTitle class="text-lg">{{ review.userId.name }}</CardTitle>
     </CardHeader>

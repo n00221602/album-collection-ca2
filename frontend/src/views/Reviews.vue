@@ -60,7 +60,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="container m-auto max-w-2xl p-4">
+  <div class="container bg-slate-800 m-auto max-w-4xl p-8 shadow-2xl rounded-lg">
     <div v-if="isLoading">
       <Spinner class="size-8" />
     </div>
@@ -88,7 +88,7 @@ onMounted(async () => {
         </Empty>
       </div>
       <ul v-else class="space-y-3">
-        <Card v-if="yourReview" class="py-4">
+        <Card v-if="yourReview" class="py-4 text-white bg-slate-700 border-0">
           <CardHeader>
             <!-- If a user exists and a review was made by them, show "Your Review" -->
             <div class="flex justify-between items-center">
@@ -108,7 +108,8 @@ onMounted(async () => {
         </Card>
 
         <ul class="py-4">
-          <ReviewComponent v-for="review in reviews.filter(review => review.userId.id !== user?.id)" :key="review.id" :review="review" />
+          <ReviewComponent v-for="review in reviews.filter(review => review.userId.id !== user?.id)" :key="review.id"
+            :review="review" />
         </ul>
       </ul>
     </div>

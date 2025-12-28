@@ -11,14 +11,12 @@ const emit = defineEmits<{ delete: [album: Album] }>();
   <li>
     <Item variant="outline">
       <ItemContent>
-        <RouterLink :to="`albums/${props.album.id}`">
           <div>
             <p class="font-semibold">{{ props.album.title }}</p>
             <p class="text-sm text-gray-500">
               {{ props.album.genre.join(", ") }} • {{ props.album.year }}
             </p>
           </div>
-        </RouterLink>
       </ItemContent>
       <ItemActions>
         <RouterLink :to="`/admin/albums/form/${album.id}`">

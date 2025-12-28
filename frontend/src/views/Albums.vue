@@ -62,12 +62,12 @@ const toggleFavorite = async (album: Album) => {
 </script>
 
 <template>
-  <div class="container bg-stone-100 m-auto max-w-2xl p-4">
+  <div class="container bg-slate-500 m-auto max-w-4xl p-8 shadow-2xl rounded-lg">
     <div v-if="isLoading">
       <Spinner class="size-8" />
     </div>
-    <div class="text-center mb-4 mt-2">
-      <h1 class="text-2xl font-bold ">All Albums</h1>
+    <div class="text-center mb-6 mt-2">
+      <h1 class="text-3xl font-bold">All Albums</h1>
     </div>
     <div v-if="albums.length < 1">
       <Empty>

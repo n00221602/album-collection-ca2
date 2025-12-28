@@ -27,7 +27,7 @@ const handleLogout = async () => {
 </script>
 
 <template>
-  <div class="container m-auto max-w-2xl p-4">
+  <div class="container bg-slate-800 m-auto max-w-4xl p-8 shadow-2xl rounded-lg">
     <div v-if="isLoggedIn && user">
       <Card>
         <CardHeader>
