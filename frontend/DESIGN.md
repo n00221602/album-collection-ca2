@@ -61,6 +61,10 @@ This is a front-end Vue application that allows users to leave reviews on select
 - Tailwind CSS
 - shadcn/ui component library
 
+### Wireframe ###
+
+![Wireframe](image.png)
+
 ### Form Validation ###
 - Toast notifications for user actions
 - Zod schemas for data-type validation

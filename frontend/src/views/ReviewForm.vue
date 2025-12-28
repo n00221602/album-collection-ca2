@@ -88,7 +88,7 @@ const onSubmit = handleSubmit(async (values) => {
                     <div >
                         <label class="text-sm font-semibold">Rating (0-10)</label>
                         <Field class="border-0"name="rating" :validateOnModelUpdate="false" v-slot="{ field }">
-                            <Input class="bg-slate-800 text-white border-0" type="number" min="0" max="10" placeholder="Add rating"
+                            <Input class="bg-slate-800 text-white border-0" v-bind="field" type="number" min="0" max="10" placeholder="Add rating"
                                 data-testid="review-rating-input" :class="{ 'border-destructive': errors.rating }" />
                         </Field>
                         <span class="text-sm text-destructive">{{ errors.rating }}</span>
