@@ -60,7 +60,7 @@ onMounted(async () => {
         <Button variant="ghost" class="flex items-center gap-2" @click="router.back()">
           <ArrowLeft />Back
         </Button>
-        <h2>Artist Details</h2>
+        <h2 data-testid="artist-details-heading">Artist Details</h2>
       </div>
       <Card class="bg-slate-700 border-4 border-black text-white mt-4">
         <CardContent v-if="artist">

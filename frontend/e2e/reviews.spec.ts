@@ -12,8 +12,8 @@ test.describe('Reviews', () => {
   });
 
   test('should display reviews for an album', async ({ page }) => {
-    await page.goto('/reviews/69501b82deb979a28150fc1c');
-    await expect(page.getByText("Album Reviews")).toBeVisible();
+    await page.goto('/reviews/69519fac506d9af1714c384c');
+    await expect(page.getByTestId('album-reviews-heading')).toBeVisible();
   });
 
   test('should create review', async ({ page }) => {

@@ -71,7 +71,7 @@ const toggleFavorite = async () => {
           <ArrowLeft />Back to Albums
         </RouterLink>
       </Button>
-      <h2>Album Details</h2>
+      <h2 data-testid="album-details-heading">Album Details</h2>
 
       <Card class="bg-slate-700 border-4 border-black text-white mt-4">
         <CardContent v-if="album">
@@ -86,8 +86,8 @@ const toggleFavorite = async () => {
               <!-- Album Artist -->
               <div class="mb-4">
                 <p class="text-sm font-semibold text-gray-500">Artist</p>
-                <RouterLink :to="`/artists/${album.artist.id}`">
-                  <p class="text-lg">{{ album.artist.name }}</p>
+                <RouterLink :to="`/artists/${album.artist.id}`" class="hover:underline">
+                  <p class="text-lg font-bold">{{ album.artist.name }}</p>
                 </RouterLink>
               </div>
 

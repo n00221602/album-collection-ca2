@@ -12,8 +12,8 @@ test.describe('Artists', () => {
   });
 
   test('should display artist details', async ({ page }) => {
-    await page.goto('/artists/69501b82deb979a28150fc1b');
-    await expect(page.getByText("Artist Details")).toBeVisible();
+    await page.goto('/artists/69519fac506d9af1714c384b');
+    await expect(page.getByTestId('artist-details-heading')).toBeVisible();
   });
 
   test('admin delete artist', async ({ page }) => {

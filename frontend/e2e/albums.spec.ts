@@ -12,8 +12,8 @@ test.describe('Albums', () => {
   });
 
   test('should display album details', async ({ page }) => {
-    await page.goto('/albums/69501b82deb979a28150fc1c');
-    await expect(page.getByText("Album Details")).toBeVisible();
+    await page.goto('/albums/69519fac506d9af1714c384c');
+    await expect(page.getByTestId('album-details-heading')).toBeVisible();
   });
 
   test('admin delete album', async ({ page }) => {
@@ -35,6 +35,5 @@ test.describe('Albums', () => {
     await page.getByTestId('album-genre-input-0').fill('Rock');
     await page.getByTestId('album-year-input').fill('2024');
     await page.getByTestId('submit-album-button').click();
-    // Note: Delete button is tested separately in 'admin album actions'
   });
 });

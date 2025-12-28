@@ -71,7 +71,7 @@ onMounted(async () => {
         </Button>
       </div>
       <div class="flex justify-between items-center space-x-4 my-6">
-        <h2 class="text-2xl font-bold">Album Reviews</h2>
+        <h2 class="text-2xl font-bold" data-testid="album-reviews-heading">Album Reviews</h2>
         <div v-if="!yourReview">
           <RouterLink :to="`/reviews/form/${props.id}`">
             <Button class="bg-blue-500">Add Your Review</Button>
