@@ -57,26 +57,30 @@ onMounted(async () => {
     </div>
     <div v-else>
       <div class="mb-6">
-        <Button variant="ghost" class="flex items-center gap-2" @click="router.back()"><ArrowLeft />Back</Button>
+        <Button variant="ghost" class="flex items-center gap-2" @click="router.back()">
+          <ArrowLeft />Back
+        </Button>
+        <h2>Artist Details</h2>
       </div>
       <Card class="bg-slate-700 border-0 text-white mt-4">
         <CardContent v-if="artist">
-            <!-- Artist Image -->
-            <div class="relative flex justify-center w-full bg-slate-600 py-3 rounded-lg">
-              <img v-if="artistImage" :src="artistImage" :alt="artist.name" class=" w-1/2 h-65 bg-slate-700 p-2 shadow-xl" />
-            </div>
-            <div class="p-3 rounded-lg">
-              <!-- Artist Name -->
-              <CardHeader class="p-0 my-4">
-                <CardTitle class="text-4xl text-center font-bold text-white mb-2">{{ artist?.name }}</CardTitle>
-              </CardHeader>
+          <!-- Artist Image -->
+          <div class="relative flex justify-center w-full bg-slate-600 py-3 rounded-lg">
+            <img v-if="artistImage" :src="artistImage" :alt="artist.name"
+              class=" w-1/2 h-65 bg-slate-700 p-2 shadow-xl" />
+          </div>
+          <div class="p-3 rounded-lg">
+            <!-- Artist Name -->
+            <CardHeader class="p-0 my-4">
+              <CardTitle class="text-4xl text-center font-bold text-white mb-2">{{ artist?.name }}</CardTitle>
+            </CardHeader>
 
-              <!-- Artist Bio -->
-              <div class="mb-4">
-                <p class="text-sm font-semibold text-gray-500">Bio</p>
-                <p class="text-lg">{{ artist?.bio }}</p>
-              </div>
+            <!-- Artist Bio -->
+            <div class="mb-4">
+              <p class="text-sm font-semibold text-gray-500">Bio</p>
+              <p class="text-lg">{{ artist?.bio }}</p>
             </div>
+          </div>
         </CardContent>
         <CardContent v-else>
           <Empty>

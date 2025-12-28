@@ -103,11 +103,11 @@ const onSubmit = handleSubmit(async (values) => {
                         <span class="text-sm text-destructive">{{ errors.comment }}</span>
                     </div>
 
-                    <Button type="submit" :disabled="isSubmitting" data-testid="create-review-button">{{ yourReview ?
+                    <Button type="submit" :disabled="isSubmitting" data-testid="submit-review-button">{{ yourReview ?
                         'Update Review' : 'Add Review' }}</Button>
                 </form>
                 <div v-if="yourReview">
-                    <Button class="bg-red-600 text-white" @click="deleteReview()" data-testid="delete-artist-button">
+                    <Button class="bg-red-600 text-white" @click="deleteReview()" data-testid="delete-review-button">
                         Delete
                     </Button>
                 </div>

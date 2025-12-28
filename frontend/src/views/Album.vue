@@ -71,62 +71,64 @@ const toggleFavorite = async () => {
           <ArrowLeft />Back to Albums
         </RouterLink>
       </Button>
-    </div>
-    <Card class="bg-slate-700 border-0 text-white mt-4">
-      <CardContent v-if="album">
-        <div class="grid grid-cols-2 gap-4">
-          <!-- Album Column 1 -->
-          <div class="flex flex-col justify-between">
-            <!-- Album Title -->
-            <CardHeader class="p-0 my-4">
-              <CardTitle class="text-4xl text-center font-bold text-white mb-2">{{ album?.title }}</CardTitle>
-            </CardHeader>
+      <h2>Album Details</h2>
 
-            <!-- Album Artist -->
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-500">Artist</p>
-              <RouterLink :to="`/artists/${album.artist.id}`">
-                <p class="text-lg">{{ album.artist.name }}</p>
-              </RouterLink>
-            </div>
+      <Card class="bg-slate-700 border-0 text-white mt-4">
+        <CardContent v-if="album">
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Album Column 1 -->
+            <div class="flex flex-col justify-between">
+              <!-- Album Title -->
+              <CardHeader class="p-0 my-4">
+                <CardTitle class="text-4xl text-center font-bold text-white mb-2">{{ album?.title }}</CardTitle>
+              </CardHeader>
 
-            <!-- Album Genre -->
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-500">Genre</p>
-              <p class="text-lg">{{ album.genre.join(", ") }}</p>
-            </div>
+              <!-- Album Artist -->
+              <div class="mb-4">
+                <p class="text-sm font-semibold text-gray-500">Artist</p>
+                <RouterLink :to="`/artists/${album.artist.id}`">
+                  <p class="text-lg">{{ album.artist.name }}</p>
+                </RouterLink>
+              </div>
 
-            <!-- Album Year -->
-            <div class="mb-4">
-              <p class="text-sm font-semibold text-gray-500">Year</p>
-              <p class="text-lg">{{ album.year }}</p>
-            </div>
+              <!-- Album Genre -->
+              <div class="mb-4">
+                <p class="text-sm font-semibold text-gray-500">Genre</p>
+                <p class="text-lg">{{ album.genre.join(", ") }}</p>
+              </div>
 
-            <!-- View Reviews Button -->
-            <div class=" pt-4">
+              <!-- Album Year -->
+              <div class="mb-4">
+                <p class="text-sm font-semibold text-gray-500">Year</p>
+                <p class="text-lg">{{ album.year }}</p>
+              </div>
+
+              <!-- View Reviews Button -->
+              <div class=" pt-4">
                 <RouterLink :to="`/reviews/${album.id}`">
                   <Button class="w-full">Show All Reviews</Button>
                 </RouterLink>
+              </div>
             </div>
+
+            <!-- Album Column 2 -->
+            <div class="flex items-center justify-center bg-slate-600 p-2 shadow-xl">
+              <!-- Album Cover Image -->
+              <img v-if="albumImage" :src="albumImage" :alt="album.title" class=" w-full object-cover" />
+            </div>
+
+
           </div>
-
-          <!-- Album Column 2 -->
-          <div class="flex items-center justify-center bg-slate-600 p-2 shadow-xl">
-            <!-- Album Cover Image -->
-            <img v-if="albumImage" :src="albumImage" :alt="album.title" class=" w-full object-cover" />
-          </div>
-
-
-        </div>
-      </CardContent>
-      <CardContent v-else>
-        <Empty>
-          <EmptyHeader>
-            <EmptyTitle>Album does not exist</EmptyTitle>
-            <EmptyDescription>Please select an album that exists</EmptyDescription>
-          </EmptyHeader>
-        </Empty>
-      </CardContent>
-    </Card>
+        </CardContent>
+        <CardContent v-else>
+          <Empty>
+            <EmptyHeader>
+              <EmptyTitle>Album does not exist</EmptyTitle>
+              <EmptyDescription>Please select an album that exists</EmptyDescription>
+            </EmptyHeader>
+          </Empty>
+        </CardContent>
+      </Card>
+    </div>
   </div>
 </template>

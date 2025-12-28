@@ -165,7 +165,7 @@ const onSubmit = handleSubmit(async (values) => {
                 </div>
 
                 <div>
-                    <Button type="submit" :disabled="isSubmitting" data-testid="create-artist-button">{{ currentArtist ?
+                    <Button type="submit" :disabled="isSubmitting" data-testid="submit-artist-button">{{ currentArtist ?
                         'Update Artist' : 'Add Artist' }}</Button>
                 </div>
             </form>

@@ -144,7 +144,7 @@ const onSubmit = handleSubmit(async (values) => {
                     </Field>
                     <span class="text-sm text-destructive">{{ errors.year }}</span>
                 </div>
-                <Button type="submit" :disabled="isSubmitting" data-testid="create-album-button">{{ currentAlbum ?
+                <Button type="submit" :disabled="isSubmitting" data-testid="submit-album-button">{{ currentAlbum ?
                     'Update Album' : 'Add Album' }}</Button>
             </form>
             <div v-if="currentAlbum" class="mt-4">
