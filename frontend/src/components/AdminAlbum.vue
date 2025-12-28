@@ -9,7 +9,7 @@ const emit = defineEmits<{ delete: [album: Album] }>();
 
 <template>
   <li>
-    <Item variant="outline">
+    <Item class="bg-slate-800 border-4 border-black">
       <ItemContent>
           <div>
             <p class="font-semibold">{{ props.album.title }}</p>

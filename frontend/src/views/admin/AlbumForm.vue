@@ -83,75 +83,80 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-    <Card>
-        <CardHeader>
-            <CardTitle>{{ currentAlbum ? 'Edit Album' : 'Add New Album' }}</CardTitle>
-        </CardHeader>
-        <CardContent>
-            <form @submit="onSubmit" class="space-y-4">
-                <div>
-                    <label class="text-sm font-semibold">Artist</label>
-                    <Field name="artistId" :validateOnModelUpdate="false" v-slot="{ field }">
-                        <select v-bind="field"
-                            class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                            data-testid="album-artist-select" :class="{ 'border-destructive': errors.artistId }">
-                            <option value="" disabled>Select an artist</option>
-                            <option v-for="artist in artists" :key="artist.id" :value="artist.id">
-                                {{ artist.name }}
-                            </option>
-                        </select>
-                    </Field>
-                    <span class="text-sm text-destructive">{{ errors.artistId }}</span>
-                </div>
+    <div class="container bg-slate-800 m-auto max-w-4xl p-8 shadow-2xl rounded-lg">
+        <Card class="bg-slate-700 text-white border-0">
+            <CardHeader>
+                <CardTitle>{{ currentAlbum ? 'Edit Album' : 'Add New Album' }}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <form @submit="onSubmit" class="space-y-4">
+                    <div>
+                        <label class="text-sm font-semibold">Artist</label>
+                        <Field name="artistId" :validateOnModelUpdate="false" v-slot="{ field }">
+                            <select v-bind="field"
+                                class="flex h-9 w-full rounded-md border-0 bg-slate-800 px-3 text-sm"
+                                data-testid="album-artist-select" :class="{ 'border-destructive': errors.artistId }">
+                                <option value="" disabled>Select an artist</option>
+                                <option v-for="artist in artists" :key="artist.id" :value="artist.id">
+                                    {{ artist.name }}
+                                </option>
+                            </select>
+                        </Field>
+                        <span class="text-sm text-destructive">{{ errors.artistId }}</span>
+                    </div>
 
-                <div>
-                    <label class="text-sm font-semibold">Title</label>
-                    <Field name="title" :validateOnModelUpdate="false" v-slot="{ field }">
-                        <Input v-bind="field" type="text" placeholder="Add title" data-testid="album-title-input"
-                            :class="{ 'border-destructive': errors.title }" />
-                    </Field>
-                    <span class="text-sm text-destructive">{{ errors.title }}</span>
-                </div>
+                    <div>
+                        <label class="text-sm font-semibold">Title</label>
+                        <Field name="title" :validateOnModelUpdate="false" v-slot="{ field }">
+                            <Input v-bind="field" type="text" placeholder="Add title" data-testid="album-title-input"
+                                class="bg-slate-800 text-white border-0"
+                                :class="{ 'border-destructive': errors.title }" />
+                        </Field>
+                        <span class="text-sm text-destructive">{{ errors.title }}</span>
+                    </div>
 
-                <div>
-                    <label class="text-sm font-semibold">Genres</label>
-                    <FieldArray name="genre" v-slot="{ fields, push, remove }">
-                        <div class="space-y-2">
-                            <div v-for="(field, index) in fields" :key="field.key" class="flex space-x-2">
-                                <Field :name="`genre[${index}]`" v-slot="{ field }">
-                                    <Input v-bind="field" type="text" placeholder="e.g. Rock"
-                                        :data-testid="`album-genre-input-${index}`"
-                                        :class="{ 'border-destructive': errors.genre?.[index] }" />
-                                </Field>
-                                <Button type="button" variant="outline" size="sm" @click="remove(index)"
-                                    :disabled="fields.length == 1">
-                                    Remove
+                    <div>
+                        <label class="text-sm font-semibold">Genres</label>
+                        <FieldArray name="genre" v-slot="{ fields, push, remove }">
+                            <div class="space-y-2">
+                                <div v-for="(field, index) in fields" :key="field.key" class="flex space-x-2">
+                                    <Field :name="`genre[${index}]`" v-slot="{ field }">
+                                        <Input v-bind="field" type="text" placeholder="e.g. Rock"
+                                            :data-testid="`album-genre-input-${index}`"
+                                            class="bg-slate-800 text-white border-0"
+                                            :class="{ 'border-destructive': errors.genre?.[index] }" />
+                                    </Field>
+                                    <Button class="bg-red-800" type="button" size="sm" @click="remove(index)"
+                                        :disabled="fields.length == 1">
+                                        Remove
+                                    </Button>
+                                </div>
+                                <Button class="bg-emerald-800" type="button" size="sm" @click="push('')">
+                                    Add Genre
                                 </Button>
                             </div>
-                            <Button type="button" variant="outline" size="sm" @click="push('')">
-                                Add Genre
-                            </Button>
-                        </div>
-                    </FieldArray>
-                    <span v-if="errors.genre" class="text-sm text-destructive">{{ errors.genre }}</span>
-                </div>
+                        </FieldArray>
+                        <span v-if="errors.genre" class="text-sm text-destructive">{{ errors.genre }}</span>
+                    </div>
 
-                <div>
-                    <label class="text-sm font-semibold">Year</label>
-                    <Field name="year" :validateOnModelUpdate="false" v-slot="{ field }">
-                        <Input v-bind="field" type="number" placeholder="Add year" data-testid="album-year-input"
-                            :class="{ 'border-destructive': errors.year }" />
-                    </Field>
-                    <span class="text-sm text-destructive">{{ errors.year }}</span>
+                    <div>
+                        <label class="text-sm font-semibold">Year</label>
+                        <Field name="year" :validateOnModelUpdate="false" v-slot="{ field }">
+                            <Input v-bind="field" type="number" placeholder="Add year" data-testid="album-year-input"
+                                class="bg-slate-800 text-white border-0"
+                                :class="{ 'border-destructive': errors.year }" />
+                        </Field>
+                        <span class="text-sm text-destructive">{{ errors.year }}</span>
+                    </div>
+                    <Button class="bg-indigo-500 text-white" type="submit" :disabled="isSubmitting" data-testid="submit-album-button">{{ currentAlbum ?
+                        'Update Album' : 'Add Album' }}</Button>
+                </form>
+                <div v-if="currentAlbum" class="mt-4">
+                    <Button class="bg-red-600 text-white" @click="deleteAlbum" data-testid="delete-album-button">
+                        Delete Album
+                    </Button>
                 </div>
-                <Button type="submit" :disabled="isSubmitting" data-testid="submit-album-button">{{ currentAlbum ?
-                    'Update Album' : 'Add Album' }}</Button>
-            </form>
-            <div v-if="currentAlbum" class="mt-4">
-                <Button class="bg-red-600 text-white" @click="deleteAlbum" data-testid="delete-album-button">
-                    Delete Album
-                </Button>
-            </div>
-        </CardContent>
-    </Card>
+            </CardContent>
+        </Card>
+    </div>
 </template>

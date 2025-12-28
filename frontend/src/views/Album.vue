@@ -73,7 +73,7 @@ const toggleFavorite = async () => {
       </Button>
       <h2>Album Details</h2>
 
-      <Card class="bg-slate-700 border-0 text-white mt-4">
+      <Card class="bg-slate-700 border-4 border-black text-white mt-4">
         <CardContent v-if="album">
           <div class="grid grid-cols-2 gap-4">
             <!-- Album Column 1 -->
@@ -112,7 +112,7 @@ const toggleFavorite = async () => {
             </div>
 
             <!-- Album Column 2 -->
-            <div class="flex items-center justify-center bg-slate-600 p-2 shadow-xl">
+            <div class="flex items-center justify-center border-4 border-black bg-slate-600 shadow-xl">
               <!-- Album Cover Image -->
               <img v-if="albumImage" :src="albumImage" :alt="album.title" class=" w-full object-cover" />
             </div>

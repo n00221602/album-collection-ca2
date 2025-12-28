@@ -18,26 +18,23 @@ import { useToast } from "vue-toastification";
 const toast = useToast();
 
 const routes = [
-  { path: "/", component: AlbumsView, meta: { requiresAuth: true } },
+  { path: "/", component: AlbumsView },
   { path: "/login", component: LoginView },
   { path: "/register", component: RegisterView },
   { path: "/profile", component: ProfileView, meta: { requiresAuth: true } },
   {
     path: "/albums/:id",
     component: AlbumView,
-    meta: { requiresAuth: true },
     props: true, // Takes any route parameters into the view component as props
   },
   {
     path: "/artists/:id",
     component: ArtistView,
-    meta: { requiresAuth: true },
     props: true, // Takes any route parameters into the view component as props
   },
   {
     path: "/reviews/:id",
     component: ReviewsView,
-    meta: { requiresAuth: true },
     props: true, // Takes any route parameters into the view component as props
   },
   {

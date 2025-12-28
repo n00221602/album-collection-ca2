@@ -61,37 +61,39 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div class="flex items-center justify-center p-4">
-    <Card class="w-full max-w-md">
-      <CardHeader>
-        <CardTitle class="text-2xl">Login</CardTitle>
-        <CardDescription>Welcome back!</CardDescription>
-      </CardHeader>
-      <CardContent v-if="isLoggedIn">
-        <Empty>
-          <EmptyHeader>
-            <EmptyTitle>Already Logged In!</EmptyTitle>
-            <EmptyDescription>You are already logged in. If you meant to login with a different
-              account, log out first.</EmptyDescription>
-          </EmptyHeader>
-        </Empty>
-      </CardContent>
-      <form v-else @submit="onSubmit">
-        <CardContent>
-          <FormField name="email" label="Email" type="email" placeholder="you@example.com" />
-          <FormField name="password" label="Password" type="password" placeholder="password" />
+  <div class="container bg-slate-800 m-auto max-w-4xl p-8 shadow-2xl rounded-lg">
+    <div class="flex items-center justify-center h-full">
+      <Card class="w-full max-w-md bg-slate-700 text-white border-0">
+        <CardHeader>
+          <CardTitle class="text-2xl">Login</CardTitle>
+          <CardDescription>Welcome back!</CardDescription>
+        </CardHeader>
+        <CardContent v-if="isLoggedIn">
+          <Empty>
+            <EmptyHeader>
+              <EmptyTitle>Already Logged In!</EmptyTitle>
+              <EmptyDescription>You are already logged in. If you meant to login with a different
+                account, log out first.</EmptyDescription>
+            </EmptyHeader>
+          </Empty>
         </CardContent>
-        <CardFooter class="flex flex-col gap-2">
-          <Button type="submit" class="w-full" :disabled="isSubmitting" data-testid="login-submit">Login</Button>
-          <p class="text-center text-muted-foreground">
-            Don't have an account?
-            <RouterLink to="/register" class="text-primary hover:underline">Register</RouterLink>
-          </p>
-        </CardFooter>
-        <div v-if="inputError" class="text-sm text-destructive">
-          {{ inputError }}
-        </div>
-      </form>
-    </Card>
+        <form v-else @submit="onSubmit">
+          <CardContent>
+            <FormField name="email" label="Email" type="email" placeholder="you@example.com" />
+            <FormField name="password" label="Password" type="password" placeholder="password" />
+          </CardContent>
+          <CardFooter class="flex flex-col gap-2">
+            <Button type="submit" class="w-full" :disabled="isSubmitting" data-testid="login-submit">Login</Button>
+            <p class="text-center text-muted-foreground">
+              Don't have an account?
+              <RouterLink to="/register" class="text-primary hover:underline">Register</RouterLink>
+            </p>
+          </CardFooter>
+          <div v-if="inputError" class="text-sm text-destructive">
+            {{ inputError }}
+          </div>
+        </form>
+      </Card>
+    </div>
   </div>
 </template>

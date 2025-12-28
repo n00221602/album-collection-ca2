@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Album } from "@/types/index";
 import { RouterLink } from "vue-router";
-import { Card, CardContent, CardAction } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 

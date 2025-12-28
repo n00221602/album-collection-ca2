@@ -5,7 +5,6 @@ import AlbumComponent from "@/components/Album.vue";
 import albumService from "@/services/albums";
 import { useToast } from "vue-toastification";
 import axios from "axios";
-import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import {
   Empty,
@@ -13,8 +12,6 @@ import {
   EmptyDescription,
   EmptyHeader,
 } from "@/components/ui/empty";
-import { Columns, Rows } from "lucide-vue-next";
-//import AlbumForm from "@/components/AlbumForm.vue";
 
 const toast = useToast();
 
@@ -38,31 +35,10 @@ onMounted(async () => {
     isLoading.value = false;
   }
 });
-
-const toggleFavorite = async (album: Album) => {
-  try {
-    const result = await albumService.updateAlbum(
-      album.id,
-      album.title,
-      album.genre,
-      album.year
-    );
-    album.favorite = result.favorite;
-  } catch (error: unknown) {
-    if (axios.isAxiosError(error)) {
-      const errorMessage =
-        error.response?.data?.message || "Failed to update album";
-      toast.error(errorMessage);
-    } else {
-      const errorMessage = "Failed to update album";
-      toast.error(errorMessage);
-    }
-  }
-};
 </script>
 
 <template>
-  <div class="container bg-slate-500 m-auto max-w-4xl p-8 shadow-2xl rounded-lg">
+  <div class="container bg-slate-700 m-auto max-w-4xl p-8 shadow-2xl rounded-lg">
     <div v-if="isLoading">
       <Spinner class="size-8" />
     </div>

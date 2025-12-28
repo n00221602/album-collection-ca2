@@ -79,16 +79,16 @@ const onSubmit = handleSubmit(async (values) => {
 
 <template>
     <div class="container bg-slate-800 m-auto max-w-4xl p-8 shadow-2xl rounded-lg">
-        <Card>
+        <Card class="bg-slate-700 text-white border-0">
             <CardHeader>
                 <CardTitle>{{ yourReview ? 'Edit Review' : 'Add New Review' }}</CardTitle>
             </CardHeader>
             <CardContent>
                 <form @submit="onSubmit" class="space-y-4">
-                    <div>
+                    <div >
                         <label class="text-sm font-semibold">Rating (0-10)</label>
-                        <Field name="rating" :validateOnModelUpdate="false" v-slot="{ field }">
-                            <Input v-bind="field" type="number" min="0" max="10" placeholder="Add rating"
+                        <Field class="border-0"name="rating" :validateOnModelUpdate="false" v-slot="{ field }">
+                            <Input class="bg-slate-800 text-white border-0" type="number" min="0" max="10" placeholder="Add rating"
                                 data-testid="review-rating-input" :class="{ 'border-destructive': errors.rating }" />
                         </Field>
                         <span class="text-sm text-destructive">{{ errors.rating }}</span>
@@ -97,17 +97,17 @@ const onSubmit = handleSubmit(async (values) => {
                     <div>
                         <label class="text-sm font-semibold">Comment (optional)</label>
                         <Field name="comment" :validateOnModelUpdate="false" v-slot="{ field }">
-                            <Input v-bind="field" type="text" placeholder="Add comment"
+                            <Input class="bg-slate-800 text-white border-0" v-bind="field" type="text" placeholder="Add comment"
                                 data-testid="review-comment-input" :class="{ 'border-destructive': errors.comment }" />
                         </Field>
                         <span class="text-sm text-destructive">{{ errors.comment }}</span>
                     </div>
 
-                    <Button type="submit" :disabled="isSubmitting" data-testid="submit-review-button">{{ yourReview ?
+                    <Button class="bg-indigo-500 text-white" type="submit" :disabled="isSubmitting" data-testid="submit-review-button">{{ yourReview ?
                         'Update Review' : 'Add Review' }}</Button>
                 </form>
                 <div v-if="yourReview">
-                    <Button class="bg-red-600 text-white" @click="deleteReview()" data-testid="delete-review-button">
+                    <Button class="bg-red-600 text-white mt-2" @click="deleteReview()" data-testid="delete-review-button">
                         Delete
                     </Button>
                 </div>

@@ -62,10 +62,10 @@ onMounted(async () => {
         </Button>
         <h2>Artist Details</h2>
       </div>
-      <Card class="bg-slate-700 border-0 text-white mt-4">
+      <Card class="bg-slate-700 border-4 border-black text-white mt-4">
         <CardContent v-if="artist">
           <!-- Artist Image -->
-          <div class="relative flex justify-center w-full bg-slate-600 py-3 rounded-lg">
+          <div class="relative flex justify-center w-full bg-slate-600 py-3 border-4 border-black rounded-lg">
             <img v-if="artistImage" :src="artistImage" :alt="artist.name"
               class=" w-1/2 h-65 bg-slate-700 p-2 shadow-xl" />
           </div>
@@ -94,7 +94,7 @@ onMounted(async () => {
 
       <!-- Albums by this Artist -->
       <div v-if="artist && artist.releases && artist.releases.length > 0" class="mt-8">
-        <Card class="bg-slate-700 border-0 text-white shadow-2xl rounded-lg p-4">
+        <Card class="bg-slate-700 border-4 border-black text-white shadow-2xl rounded-lg p-4">
           <CardHeader class="p-0 my-2">
             <CardTitle class="text-2xl text-center font-bold text-white">Albums by {{ artist.name }}</CardTitle>
           </CardHeader>

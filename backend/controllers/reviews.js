@@ -19,7 +19,7 @@ reviewRouter.get("/user", requireAuth, async (req, res) => {
   res.json(reviews);
 });
 
-reviewRouter.get("/", requireAuth, async (req, res) => {
+reviewRouter.get("/", async (req, res) => {
   const allReviews = await Review.find().populate("userId").exec();
   if (!allReviews) {
       throw new HttpError(NOT_FOUND, "Could not find reviews");

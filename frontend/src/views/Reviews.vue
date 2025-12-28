@@ -8,7 +8,7 @@ import { useToast } from "vue-toastification";
 import axios from "axios";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-vue-next";
+import { ArrowLeft, Star } from "lucide-vue-next";
 import ReviewComponent from "@/components/Review.vue";
 import {
   Empty,
@@ -88,26 +88,24 @@ onMounted(async () => {
         </Empty>
       </div>
       <ul v-else class="space-y-3">
-        <Card v-if="yourReview" class="py-4 text-white bg-slate-700 border-0">
-          <CardHeader>
-            <!-- If a user exists and a review was made by them, show "Your Review" -->
-            <div class="flex justify-between items-center">
-              <CardTitle class="text-lg">Your Review</CardTitle>
+        <Card v-if="yourReview" class="py-4 text-white bg-slate-700 border-4 border-black">
+          <CardHeader class="flex items-center justify-between mb-4">
+            <CardTitle class="text-lg">Your Review</CardTitle>
+            <CardTitle class="text-lg flex items-center gap-2">{{ yourReview.rating }} / 10
+              <Star class="w-6 h-6 fill-yellow-400 text-yellow-500" />
               <RouterLink :to="`/reviews/form/${props.id}/${yourReview.id}`">
-                <Button class="bg-orange-500">Edit Your Review</Button>
+                <Button class="bg-orange-500">Edit</Button>
               </RouterLink>
-            </div>
+            </CardTitle>
           </CardHeader>
           <CardContent v-if="yourReview">
-            <div>
-              <h1>Rating: {{ yourReview.rating }}/10</h1>
+            <div class="space-y-2">
               <p>{{ yourReview.comment }}</p>
-              <!-- Add Album image, clicking will lead to that album's details page -->
             </div>
           </CardContent>
         </Card>
 
-        <ul class="py-4">
+        <ul class="space-y-2">
           <ReviewComponent v-for="review in reviews.filter(review => review.userId.id !== user?.id)" :key="review.id"
             :review="review" />
         </ul>

@@ -13,19 +13,10 @@ defineProps<{
 
 <template>
   <div class="space-y-2">
-    <Field
-      :name="name"
-      :validate-on-model-update="false"
-      v-slot="{ field, errorMessage }"
-    >
+    <Field :name="name" :validate-on-model-update="false" v-slot="{ field, errorMessage }">
       <Label v-if="label" :for="name">{{ label }}</Label>
-      <Input
-        v-bind="field"
-        :type="type"
-        :placeholder="placeholder"
-        :data-testid="`form-field-${name}`"
-        :class="{ 'border-destructive': errorMessage }"
-      />
+      <Input v-bind="field" :type="type" :placeholder="placeholder" :data-testid="`form-field-${name}`"
+        class="bg-slate-800 text-white border-0" :class="{ 'border-destructive': errorMessage }" />
       <span class="text-sm text-destructive">{{ errorMessage }}</span>
     </Field>
   </div>

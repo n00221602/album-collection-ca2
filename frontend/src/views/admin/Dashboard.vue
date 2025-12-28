@@ -20,12 +20,12 @@ const isAdmin = computed(() => {
 </script>
 
 <template>
-    <div class="container m-auto max-w-2xl">
+    <div class="container bg-slate-800 m-auto max-w-4xl p-8 shadow-2xl rounded-lg">
         <div v-if="isLoading">
             <Spinner class="size-8" />
         </div>
         <div v-else-if="!isAdmin">
-            <Card>
+            <Card class="bg-slate-700 text-white border-4 border-black">
                 <CardHeader>
                     <CardTitle>Access Denied</CardTitle>
                     <CardDescription>You need admin privileges to access this page.</CardDescription>
@@ -43,7 +43,7 @@ const isAdmin = computed(() => {
 
             <div class="space-y-6">
                 <!-- Album CRUD Section -->
-                <Card>
+                <Card class="bg-slate-700 text-white border-4 border-black">
                     <CardHeader>
                         <CardTitle>Manage Albums</CardTitle>
                         <CardDescription>Create, edit, or delete albums</CardDescription>
@@ -58,7 +58,7 @@ const isAdmin = computed(() => {
                 </Card>
 
                 <!-- Artists CRUD Section -->
-                <Card>
+                <Card class="bg-slate-700 text-white border-4 border-black">
                     <CardHeader>
                         <CardTitle>Manage Artists</CardTitle>
                         <CardDescription>Create, edit, or delete artists</CardDescription>

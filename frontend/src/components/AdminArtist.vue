@@ -10,7 +10,7 @@ const emit = defineEmits<{ delete: [artist: Artist] }>();
 
 <template>
   <li>
-    <Item variant="outline">
+     <Item class="bg-slate-800 border-4 border-black">
       <ItemContent>
         <div>
           <p class="font-semibold">{{ artist.name }}</p>

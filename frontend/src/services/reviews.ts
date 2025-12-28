@@ -48,6 +48,7 @@ const deleteReview = async (id: string): Promise<void> => {
 };
 
 export default {
+  getUserReviews,
   getAllReviews,
   getReview,
   createReview,

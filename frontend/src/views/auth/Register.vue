@@ -51,27 +51,29 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <div class="flex items-center justify-center p-4">
-    <Card class="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Register</CardTitle>
-        <CardDescription>Create a new account</CardDescription>
-      </CardHeader>
-      <form @submit="onSubmit">
-        <CardContent>
-          <FormField name="name" label="Name" type="text" placeholder="Name" />
-          <FormField name="email" label="Email" type="email" placeholder="Email" />
-          <FormField name="password" label="Password" type="password" placeholder="Password" />
-          <FormField name="confirmPassword" label="Confirm Password" type="password" placeholder="password" />
-        </CardContent>
-        <CardFooter class="flex flex-col gap-2">
-          <Button type="submit" class="w-full" :disabled="isSubmitting">Register</Button>
-          <p class="text-center text-muted-foreground">
-            Already have an account?
-            <RouterLink to="/login" class="text-primary hover:underline">Login</RouterLink>
-          </p>
-        </CardFooter>
-      </form>
-    </Card>
+  <div class="container bg-slate-800 m-auto max-w-4xl p-8 shadow-2xl rounded-lg">
+    <div class="flex items-center justify-center h-full">
+      <Card class="w-full max-w-md bg-slate-700 text-white border-0">
+        <CardHeader>
+          <CardTitle>Register</CardTitle>
+          <CardDescription>Create a new account</CardDescription>
+        </CardHeader>
+        <form @submit="onSubmit">
+          <CardContent>
+            <FormField name="name" label="Name" type="text" placeholder="Name" />
+            <FormField name="email" label="Email" type="email" placeholder="Email" />
+            <FormField name="password" label="Password" type="password" placeholder="Password" />
+            <FormField name="confirmPassword" label="Confirm Password" type="password" placeholder="password" />
+          </CardContent>
+          <CardFooter class="flex flex-col gap-2">
+            <Button type="submit" class="w-full" :disabled="isSubmitting">Register</Button>
+            <p class="text-center text-muted-foreground">
+              Already have an account?
+              <RouterLink to="/login" class="text-primary hover:underline">Login</RouterLink>
+            </p>
+          </CardFooter>
+        </form>
+      </Card>
+    </div>
   </div>
 </template>
